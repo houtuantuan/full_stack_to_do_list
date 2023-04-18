@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import react from "react";
+import { useEffect, useState } from "react";
+import Todos from "./Todo";
+import Todolist from "./Todolist";
 
 function App() {
+  const [todos, setTodos] = useState([{ content: "buy toilet paper", isDone: false,isEdit:false }]);
+
+  const fetchData = async () => {
+    try {console.log(1111)
+      const getTodos = await fetch('http://localhost:5000/todo');
+      if (!getTodos) throw new Error(`Request failes with a status of ${getTodos.status}`);
+      const parseData = await getTodos.json();
+      setTodos(parseData.todos);
+      
+      console.log(parseData)
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Todolist todos={todos} setTodos={setTodos}/>
+    
+    </>
   );
 }
 
