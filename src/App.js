@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import Todos from "./Todo";
 import Todolist from "./Todolist";
 
+import {BASE_URL} from './tools/Constants'
+
 function App() {
   const [todos, setTodos] = useState(null);
 
   const fetchData = async () => {
     try {console.log(1111)
-      const getTodos = await fetch('http://localhost:5000/todo');
+      const getTodos = await fetch(`${BASE_URL}/todo`);
       if (!getTodos) throw new Error(`Request failes with a status of ${getTodos.status}`);
       const parseData = await getTodos.json();
       setTodos(parseData.todos);

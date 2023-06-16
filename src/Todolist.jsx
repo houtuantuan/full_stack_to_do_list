@@ -3,6 +3,8 @@ import Todo from './Todo'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import './input.css'
+import {BASE_URL} from './tools/Constants'
+
 
 export default function Todolist ({ todos, setTodos }) {
   //   const [todos, setTodos] = useState([{ content: "buy toilet paper", isDone: false,isEdit:false }]);
@@ -16,7 +18,7 @@ export default function Todolist ({ todos, setTodos }) {
     try {
       e.preventDefault()
 
-      const { data } = await axios.post('http://localhost:5000/todo/', {
+      const { data } = await axios.post(`${BASE_URL}/todo/`, {
         todo: e.target.task.value
       })
       console.log(111)
@@ -33,7 +35,7 @@ export default function Todolist ({ todos, setTodos }) {
       // console.log(JSON.stringify(todos[index]))
       // console.log(todos[index]._id)
       const { data } = await axios.delete(
-        `http://localhost:5000/todo/${todos[index]._id}`
+        `${BASE_URL}/${todos[index]._id}`
       )
       setTodos(data)
     } catch (e) {
@@ -47,7 +49,7 @@ export default function Todolist ({ todos, setTodos }) {
   const handleDone = async index => {
     const newTodos = [...todos]
     try {
-      await axios.put(`http://localhost:5000/todo/done/${todos[index]._id}`)
+      await axios.put(`${BASE_URL}/todo/done/${todos[index]._id}`)
 
       newTodos[index].isDone = true
       setTodos(newTodos)
@@ -66,7 +68,7 @@ export default function Todolist ({ todos, setTodos }) {
   const handleOk = async (event, index) => {
     const newTodos = [...todos]
     try {
-      await axios.put(`http://localhost:5000/todo/${todos[index]._id}`, {
+      await axios.put(`${BASE_URL}/todo/${todos[index]._id}`, {
         todo: event.target.previousElementSibling.value
       })
       console.log(todos[index]._id)
