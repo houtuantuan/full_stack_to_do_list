@@ -19,7 +19,7 @@ export default function Todolist ({ todos, setTodos }) {
         todo: e.target.task.value
       })
       console.log(111)
-      const newTodos = [...todos, { todo: e.target.task.value }]
+      const newTodos = [...todos, data.data]
       setTodos(newTodos)
       e.target.task.value = ''
     } catch (error) {
@@ -29,11 +29,12 @@ export default function Todolist ({ todos, setTodos }) {
 
   const handleDelete = async index => {
     try {
+      // console.log(JSON.stringify(todos[index]))
+      // console.log(todos[index]._id)
       const { data } = await axios.delete(
         `http://localhost:5000/todo/${todos[index]._id}`
       )
       setTodos(data)
-      console.log(2222)
     } catch (e) {
       console.log(e)
     }
@@ -49,6 +50,7 @@ export default function Todolist ({ todos, setTodos }) {
 
       newTodos[index].isDone = true
       setTodos(newTodos)
+      console.log(newTodos)
     } catch (error) {
       console.log(error)
     }
@@ -66,18 +68,21 @@ export default function Todolist ({ todos, setTodos }) {
       await axios.put(`http://localhost:5000/todo/${todos[index]._id}`, {
         todo: event.target.previousElementSibling.value
       })
-      newTodos[index] = { 
-        isEdit: false,
-        todo:event.target.previousElementSibling.value
-     }
+      console.log(todos[index]._id)
+      //   newTodos[index] = {
+      //     ...newTodos[index],
+      //     isEdit: false,
+      //     todo:event.target.previousElementSibling.value
+      //  }
+
+      newTodos[index].isEdit = false
+      newTodos[index].todo = event.target.previousElementSibling.value
 
       setTodos(newTodos)
+      console.log(todos)
     } catch (error) {
       console.log(error)
     }
-    console.log(event.target.previousElementSibling.value)
-
-    console.log(newTodos[index])
   }
 
   return (

@@ -4,7 +4,7 @@ import Todos from "./Todo";
 import Todolist from "./Todolist";
 
 function App() {
-  const [todos, setTodos] = useState([{ content: "buy toilet paper", isDone: false,isEdit:false }]);
+  const [todos, setTodos] = useState(null);
 
   const fetchData = async () => {
     try {console.log(1111)
