@@ -2,6 +2,7 @@ import React from 'react'
 import Todo from './Todo'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import './input.css'
 
 export default function Todolist ({ todos, setTodos }) {
   //   const [todos, setTodos] = useState([{ content: "buy toilet paper", isDone: false,isEdit:false }]);
@@ -86,27 +87,45 @@ export default function Todolist ({ todos, setTodos }) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='inputtask'>Your Tasks</label>
-        <br />
-        <input type='text' name='task' id='inputtask' />
-        <button>Submit</button>
-      </form>
-      <div>
-        {todos &&
-          todos.map((todo, index) => (
-            <Todo
-              key={index}
-              index={index}
-              todo={todo}
-              handleDelete={handleDelete}
-              handleDone={handleDone}
-              handleEdit={handleEdit}
-              handleOk={handleOk}
-            />
-          ))}
+    <div className='h-screen flex justify-center items-center flex-col gap-8'>
+      <div className='flex justify-center items-center gap-6'>
+        <form onSubmit={handleSubmit}>
+          <label 
+          className='text-blue-600 uppercase font-semibold text-2xl my-10 py-11'
+          htmlFor='inputtask'></label>
+          <br />
+          <input
+            className='w-72 border-2  mx-10 rounded-md px-3 py-3 bg-[#E8ECF4] backdrop-blur-lg'
+            type='text'
+            name='task'
+            id='inputtask'
+            placeholder='Enter your tasks'
+          />
+          <button 
+          
+          className='h-full px-5 py-2 mx-10 bg-[#0264F6] text-white font-medium rounded-md'>
+            Submit
+          </button>
+        </form>
+        
       </div>
+      <h1 className='text-blue-600 uppercase font-semibold text-2xl'>
+          Task List
+        </h1>
+      <div style={{width:"50%"}}>
+          {todos &&
+            todos.map((todo, index) => (
+              <Todo
+                key={index}
+                index={index}
+                todo={todo}
+                handleDelete={handleDelete}
+                handleDone={handleDone}
+                handleEdit={handleEdit}
+                handleOk={handleOk}
+              />
+            ))}
+        </div>
     </div>
   )
 }
