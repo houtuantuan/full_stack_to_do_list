@@ -34,10 +34,10 @@ export default function Todolist ({ todos, setTodos }) {
     try {
       // console.log(JSON.stringify(todos[index]))
       // console.log(todos[index]._id)
-      const { data } = await axios.delete(
-        `${BASE_URL}/${todos[index]._id}`
+      await axios.delete(
+        `${BASE_URL}/todo/${todos[index]._id}`
       )
-      setTodos(data)
+     
     } catch (e) {
       console.log(e)
     }
